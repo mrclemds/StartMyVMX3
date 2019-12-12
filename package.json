@@ -1,11 +1,12 @@
 {
-  "name": "scm-starter",
+  "name": "@sage/scm-starter",
   "version": "0.0.1",
   "description": "A little node program that can start your VM",
   "main": "build/index.js",
   "scripts": {
     "build": "tsc",
     "dev": "node -r ts-node/register/transpile-only src/index.ts",
+    "prepack": "npm run build && npm version major",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "MrClemds",
