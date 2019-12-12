@@ -6,6 +6,7 @@ Just install it globally
 > `npm install -g @sage/scm-starter`
 
 Create a _config.yml_ file or use the one given with the package.
+
 ```YAML
 username: 'Your USERNAME'
 password: 'Your PASSWORD' #(Both username and password are for the uranus2 server)
@@ -17,7 +18,7 @@ And then you will be able to run
 - `startMyVM` to start your VM
 - `startMyVM stop` to stop your VM
 
-Optionnal arg
+Optional args
 
 - `config="path"` Enable you to redefine the config file path
 - `stop` Enable you to stop your VM instead
