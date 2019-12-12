@@ -3,7 +3,7 @@
 This package contains a script able to start and stop autonomously your X3 vm.
 
 Just install it globally
-> `npm install -g scm-starter`
+> `npm install -g @sage/scm-starter`
 
 Create a _config.yml_ file or use the one given with the package.
 ```YAML
