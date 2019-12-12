@@ -21,6 +21,7 @@ const menuList = {
 };
 
 const stop = process.argv.indexOf("stop") !== -1;
+const debug = process.argv.indexOf("debug") !== -1;
 const configFile = (() => {
   const index = process.argv.findIndex((arg) => {
     return arg.indexOf('config') !== -1;
@@ -36,8 +37,9 @@ const config: config = safeLoad(readFileSync(configFile));
 
 (async () => {
   // ================================================ INIT BROWSER
-	// const browser = await puppeteer.launch({ headless: false });
-	const browser = await puppeteer.launch();
+  let option = {}
+  if(debug) option = { headless: false };
+  const browser = await puppeteer.launch(option);
   const page = await browser.newPage();
 	await page.setViewport({ width: 1920, height: 937 });
 	
