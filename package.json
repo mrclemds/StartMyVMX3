@@ -1,6 +1,6 @@
 {
   "name": "@sage/scm-starter",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A little node program that can start your VM",
   "main": "build/index.js",
   "scripts": {
