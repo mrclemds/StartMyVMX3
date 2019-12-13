@@ -22,4 +22,4 @@ Optional args
 
 - `config="path"` Enable you to redefine the config file path
 - `stop` Enable you to stop your VM instead
-_ `debug` Show the script actions
+- `debug` Show the script actions
