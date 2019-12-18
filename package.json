@@ -12,7 +12,9 @@
   "author": "MrClemds",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.0",
     "js-yaml": "^3.13.1",
+    "mitsobox": "^0.1.4",
     "puppeteer": "^2.0.0"
   },
   "devDependencies": {
@@ -22,6 +24,7 @@
     "typescript": "^3.7.3"
   },
   "bin": {
-    "startMyVM": "./build/index.js"
+    "startMyVM": "./build/index.js",
+    "stopMyVM": "./build/index.js stop"
   }
 }
