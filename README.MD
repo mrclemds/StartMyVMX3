@@ -16,7 +16,7 @@ vm: 'Your VM identifier' #Like your unique 3 letter id or the Instance name (upp
 And then you will be able to run
 
 - `startMyVM` to start your VM
-- `startMyVM stop` to stop your VM
+- `stopMyVM` to stop your VM
 
 Optional args
 
