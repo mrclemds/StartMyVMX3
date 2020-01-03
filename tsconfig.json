@@ -31,7 +31,8 @@
         "./node_modules",
         "./build",
         "config.yml",
-        "*.json"
+        "*.json",
+        "/test"
     ]
 }
 

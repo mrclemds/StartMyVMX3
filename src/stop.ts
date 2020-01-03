@@ -1,5 +1,20 @@
 import { exec } from 'shelljs';
 
-exec('node . stop ' + process.argv.slice(2, process.argv.length)?.join(' '), statusCode => {
-    process.exit(statusCode);
+const preparedArgs = ((): string => {
+  return process.argv
+    .slice(2, process.argv.length)
+    ?.map(arg => {
+      if (!arg.includes('=')) return arg;
+      const argEntries = arg.split('=');
+      argEntries[1] = `"${argEntries[1]}"`;
+      return argEntries.join('=');
+    })
+    .join(' ');
+})();
+
+
+console.log(preparedArgs);
+
+exec('node . stop ' + preparedArgs, statusCode => {
+  if (statusCode === 1) throw new Error('Process exited with status code 1');
 });

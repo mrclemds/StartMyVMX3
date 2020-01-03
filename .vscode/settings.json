@@ -1,0 +1,11 @@
+{
+    "editor.formatOnSave": true,
+    "typescript.tsdk": "./node_modules/typescript/lib",
+    "git.ignoreLimitWarning": true,
+    "[typescript]": {
+        "editor.insertSpaces": true
+    },
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
+}

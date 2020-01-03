@@ -3,11 +3,19 @@
   "version": "3.0.1",
   "description": "A little node program that can start your VM",
   "main": "build/index.js",
+  "engines": {
+    "node": ">=8.10.0"
+  },
   "scripts": {
     "build": "tsc",
+    "start": "node .",
     "dev": "node -r ts-node/register/transpile-only src/index.ts",
     "dev:stop": "node -r ts-node/register/transpile-only src/stop.ts",
-    "prepack": "npm run build",
+    "prepack": "npm run lint && npm run format && npm run build",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier --check \"src/*.ts\" --loglevel error",
+    "format:fix": "npm run format -- --write",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "MrClemds",
@@ -15,14 +23,26 @@
   "dependencies": {
     "axios": "^0.19.0",
     "js-yaml": "^3.13.1",
+    "lodash": "^4.17.15",
     "mitsobox": "^0.1.4",
     "puppeteer": "^2.0.0",
     "shelljs": "^0.8.3"
   },
+  "typings": "build/index.d.ts",
   "devDependencies": {
     "@types/js-yaml": "^3.12.1",
+    "@types/lodash": "^4.14.149",
+    "@types/mitsobox": "0.1.0",
     "@types/puppeteer": "^2.0.0",
     "@types/shelljs": "^0.8.6",
+    "@typescript-eslint/eslint-plugin": "^2.14.0",
+    "@typescript-eslint/parser": "^2.14.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^1.19.1",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.3"
   },
