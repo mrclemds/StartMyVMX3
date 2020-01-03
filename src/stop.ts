@@ -12,7 +12,6 @@ const preparedArgs = ((): string => {
     .join(' ');
 })();
 
-
 console.log(preparedArgs);
 
 exec('node . stop ' + preparedArgs, statusCode => {
