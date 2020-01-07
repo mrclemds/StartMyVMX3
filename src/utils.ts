@@ -55,8 +55,6 @@ export function parseArgs(argv: string[]): params {
     })
     .reduce((accumulator, current) => {
       if (['stop', 'debug', 'noMessageBox', 'serverHost', 'config'].includes(Object.keys(current)[0])) {
-        if (Object.keys(current)[0] === 'config') current.config = JSON.parse(Object.keys(current)[1]) as config;
-
         return {
           ...accumulator,
           ...current,
@@ -131,10 +129,8 @@ export class SCMStarter {
       switch (await this.messageBox('Error', 'Server unreachable')) {
         case 'IGNORE':
           return true;
-          break;
         case 'RETRY':
           return this.checkServerLink();
-          break;
         case 'ABORT':
         default:
           if (this.params?.debug === 'true') console.log(this.configFile, ':', JSON.stringify(this.config));

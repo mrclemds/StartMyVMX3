@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /* eslint-disable node/no-missing-import */
 import { isConfigPath, params, parseArgs, SCMStarter } from './utils';
 export * from './utils';
@@ -21,7 +23,11 @@ const getConfig = ((): boolean => {
 
     if (isPath) {
       configFile = config;
-      argV = argV.slice(index + 1, argV.length);
+      argV = argV.filter((arg, argIndex) => {
+        if (index !== argIndex) return arg;
+      });
+    } else {
+      console.warn('config: ', config, '\nwould be considered as a JSON object');
     }
   }
 

@@ -24,5 +24,12 @@ module.exports = {
     "plugin:node/recommended",
     "prettier/@typescript-eslint",
     "plugin:node/recommended-module"
-  ]
+  ],
+  "rules": {
+    "node/shebang": ["error", {
+      "convertPath": {
+        "src/**/*.ts": ["^src/(.+?)\\.ts$", "build/$1.js"]
+      }
+    }]
+  }
 };

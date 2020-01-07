@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { exec } from 'shelljs';
 
 const preparedArgs = ((): string => {
@@ -11,8 +13,6 @@ const preparedArgs = ((): string => {
     })
     .join(' ');
 })();
-
-console.log(preparedArgs);
 
 exec('node . stop ' + preparedArgs, statusCode => {
   if (statusCode === 1) throw new Error('Process exited with status code 1');
