@@ -36,13 +36,9 @@ export function isConfigPath(arg: string): boolean {
 }
 
 export function parseArgs(argv: string[]): params {
-  console.log(argv);
-
   argv.forEach((value, index) => {
     argv[index] = value.replace(/[']/g, '"').replace(/[\\]/g, '');
   });
-
-  console.log(argv);
 
   return argv
     .map(arg => {
