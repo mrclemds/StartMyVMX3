@@ -1,3 +1,11 @@
 node_modules/
 npm-debug.log
 src/
+.eslintrc.js
+.eslintignore
+.prettierrc
+.prettierignore
+.vscode/
+build/*.map
+.tsconfig.json
+README.MD
