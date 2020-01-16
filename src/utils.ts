@@ -40,6 +40,8 @@ export function parseArgs(argv: string[]): params {
     argv[index] = value.replace(/[']/g, '"').replace(/[\\]/g, '');
   });
 
+  if (argv.length === 0) return {};
+
   return argv
     .map(arg => {
       if (/[=]/g.exec(arg)) {
