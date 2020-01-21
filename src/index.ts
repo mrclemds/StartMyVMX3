@@ -27,7 +27,16 @@ const getConfig = ((): boolean => {
         if (index !== argIndex) return arg;
       });
     } else {
-      console.warn('config: ', config, '\nwould be considered as a JSON object');
+      const test = config.split("'");
+
+      if (config.includes('password')) {
+        for (let i = 3; i <= test.length; i++) {
+          if (i === 3 || (i - 3) % 4 === 0) {
+            test[i] = '****';
+          }
+        }
+      }
+      console.warn('config: ', test.join("'"), '\nwould be considered as a JSON object');
     }
   }
 
