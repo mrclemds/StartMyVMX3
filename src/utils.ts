@@ -268,10 +268,10 @@ export class SCMStarter {
       });
     }
 
-    let config: null | config = null;
+    let config: config | null = null;
 
     try {
-      config = safeLoad(readFileSync(this.configFile, 'utf8'));
+      config = safeLoad(readFileSync(this.configFile, 'utf8')) as config;
     } catch (error) {
       this.messageBox('Error', 'Not a valid config File')?.then(action => {
         switch (action) {

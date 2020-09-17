@@ -1,0 +1,3 @@
+[submodule "dependencies/mitsobox"]
+	path = dependencies/mitsobox
+	url = https://github.com/mrclemds/mitsobox
