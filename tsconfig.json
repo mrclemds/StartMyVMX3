@@ -13,7 +13,6 @@
     "strictNullChecks": true,
     "experimentalDecorators": true,
     "stripInternal": true,
-    "watch": false,
     "skipLibCheck": true,
     "outDir": "./build",
     "strict": true,

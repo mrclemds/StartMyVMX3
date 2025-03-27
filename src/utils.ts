@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { existsSync, readFileSync } from 'fs';
-import { safeLoad } from 'js-yaml';
+import { FAILSAFE_SCHEMA, load } from 'js-yaml';
 import { isEqual } from 'lodash';
 import { abortRetryIgnore } from 'mitsobox';
 import { parse, ParsedPath, resolve } from 'path';
@@ -75,7 +75,10 @@ export class SCMStarter {
     stop: 'Stops the On Demand Instance',
   };
 
-  public constructor(public params?: params, private configFile?: string) {
+  public constructor(
+    public params?: params,
+    private configFile?: string,
+  ) {
     if (configFile) this.setConfig(configFile);
     else if (params?.config === undefined) this.findConfigFile();
     else this.setConfig(params.config);
@@ -174,9 +177,13 @@ export class SCMStarter {
       try {
         await page.waitForNavigation({ timeout: 500 });
         await page.waitForSelector('#error-msg', { timeout: 1000 });
-        error = await page.evaluate((el: HTMLElement) => el.innerText, await page.$('#error-msg'), { timeout: 1000 });
+        error = await page.evaluate(
+          (el: Element | null) => (el as HTMLElement).innerText || '',
+          await page.$('#error-msg'),
+          { timeout: 1000 },
+        );
       } catch (err) {
-        if (err.message.indexOf('timeout') < 0) throw err;
+        if (err instanceof Error && err.message.includes('timeout')) throw err;
       } finally {
         (): void => {
           if (error) throw Error(error);
@@ -191,11 +198,11 @@ export class SCMStarter {
       // ================================================ GET VM STATUS
       if (this.params?.debug === 'true') console.log('getting vm status');
       const index: number = await page.evaluate(
-        (el: Element) => (el.parentNode as HTMLTableHeaderCellElement).cellIndex,
+        (el: Element | null) => (el ? (el.parentNode as HTMLTableCellElement).cellIndex : -1),
         await page.$('.s-grid-slot-head > .s-grid-table-head > tr > th > div[title="State"]'),
       );
       const status = await page.evaluate(
-        (el: HTMLElement) => el.innerText,
+        (el: Element | null) => (el as HTMLElement)?.innerText || '',
         await page.$(
           '.s-grid-slot-body > .s-grid-table-body > .s-grid-row > .s-grid-cell:nth-child(' +
             (index + 1).toString() +
@@ -237,7 +244,11 @@ export class SCMStarter {
           break;
         case 'ABORT':
         default:
-          throw new Error(error.message);
+          if (error instanceof Error) {
+            throw new Error(error.message);
+          } else {
+            throw new Error(String(error));
+          }
       }
     } finally {
       // ================================================ CLOSE BROWSER
@@ -271,7 +282,7 @@ export class SCMStarter {
     let config: config | null = null;
 
     try {
-      config = safeLoad(readFileSync(this.configFile, 'utf8')) as config;
+      config = load(readFileSync(this.configFile, 'utf8'), { schema: FAILSAFE_SCHEMA }) as config;
     } catch (error) {
       this.messageBox('Error', 'Not a valid config File')?.then(action => {
         switch (action) {
